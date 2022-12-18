@@ -1,0 +1,78 @@
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+var geometry = new THREE.BoxGeometry(1, 1, 1);
+var platform = new THREE.BoxGeometry(10, 20, -10);
+
+var material = new THREE.MeshBasicMaterial({
+	color: 'cyan' 
+	
+
+});
+var flor = new THREE.MeshBasicMaterial({
+	color: 'lime' 
+	
+
+});
+
+
+var cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+var platform = new THREE.Mesh(platform, flor);
+scene.add(platform);
+
+platform.position.y =-20
+camera.position.z = 10;
+camera.position.y = 8;
+cube.position.y += 10;
+cube.position.z -= 5
+camera.position.z -=3
+camera.position.y += 5
+
+const light = new THREE.PointLight(0xff0000, 1, 10);
+light.position.set(50, 50, 50);
+scene.add(light);
+// White directional light at half intensity shining from the top.
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+scene.add(directionalLight);
+
+const color = 0xFFFFFF;
+const skyColor = 0xB1E1FF; // light blue
+const groundColor = 0xB97A20; // brownish
+
+//const intensity = 1;
+//const light = new THREE.AmbientLigh. t(color, intensity);
+//const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+//scene.add(light);
+//const gui = new GUI();
+//gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+//gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('skyColor');
+//gui.addColor(new ColorGUIHelper(light,  'groundColor'), 'value').name('groundColor');
+//gui.add(light, 'intensity', 0, 2, 0.01);
+
+function a(){
+	cube.position.y += 10
+	camera.position.y +=10
+}
+
+
+
+
+var render = function() {
+	requestAnimationFrame(render);
+	cube.rotation.x += 0.1;
+	cube.rotation.z += 0.003 
+	cube.rotation.y -= 0.001
+	
+	cube.position.y -= 0.08
+		camera.position.y -= 0.08
+	renderer.render(scene, camera);
+};
+
+render();
+
